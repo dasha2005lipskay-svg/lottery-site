@@ -86,75 +86,98 @@
 <body class="min-h-screen flex items-center justify-center">
     
     <!-- Модальное окно с формой -->
-    <div id="formModal" class="fixed inset-0 modal-overlay flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-2xl p-8 max-w-md w-full mx-4 transform transition-all">
-            <div class="text-center mb-6">
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Регистрация участника</h2>
-                <p class="text-gray-600">Заполните форму для участия в лотерее</p>
+    <div id="dataModal" class="fixed inset-0 modal-overlay flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-2xl max-w-md w-full mx-4 transform transition-all">
+            <div class="red-gradient text-white p-6 rounded-t-lg">
+                <h2 class="text-2xl font-bold text-center">
+                    <i class="fas fa-gift mr-2"></i>
+                    Участие в лотерее
+                </h2>
+                <p class="text-center mt-2 opacity-90">Заполните данные для участия</p>
             </div>
             
-            <form id="registrationForm" class="space-y-4">
+            <form id="userDataForm" class="p-6 space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">ФИО *</label>
-                    <input type="text" id="fullName" required 
-                           class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none transition-all"
+                    <label class="block text-gray-700 font-semibold mb-2">
+                        <i class="fas fa-user mr-2 text-red-600"></i>ФИО *
+                    </label>
+                    <input type="text" id="fullName" name="fullName" required 
+                           class="form-input w-full px-4 py-3 rounded-lg focus:outline-none"
                            placeholder="Введите ваше полное имя">
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Email *</label>
-                    <input type="email" id="email" required 
-                           class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none transition-all"
-                           placeholder="example@email.com">
+                    <label class="block text-gray-700 font-semibold mb-2">
+                        <i class="fas fa-envelope mr-2 text-red-600"></i>Email *
+                    </label>
+                    <input type="email" id="email" name="email" required 
+                           class="form-input w-full px-4 py-3 rounded-lg focus:outline-none"
+                           placeholder="your@email.com">
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Номер телефона *</label>
-                    <input type="tel" id="phone" required 
-                           class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none transition-all"
-                           placeholder="+7 (999) 123-45-67">
+                    <label class="block text-gray-700 font-semibold mb-2">
+                        <i class="fas fa-phone mr-2 text-red-600"></i>Номер телефона *
+                    </label>
+                    <input type="tel" id="phone" name="phone" required 
+                           class="form-input w-full px-4 py-3 rounded-lg focus:outline-none"
+                           placeholder="+7 (___) ___-__-__">
                 </div>
                 
                 <div class="flex items-start space-x-3 mt-6">
-                    <input type="checkbox" id="dataProcessing" required class="checkbox-custom mt-1">
-                    <label for="dataProcessing" class="text-sm text-gray-700 cursor-pointer">
-                        Я согласен на обработку персональных данных и участие в лотерее *
+                    <div class="checkbox-custom">
+                        <input type="checkbox" id="consent" name="consent" required>
+                        <span class="checkmark"></span>
+                    </div>
+                    <label for="consent" class="text-sm text-gray-600 cursor-pointer leading-5">
+                        Я соглашаюсь на обработку персональных данных и получение информационных сообщений *
                     </label>
                 </div>
                 
-                <button type="submit" class="btn-primary w-full py-3 px-6 text-white rounded-lg font-semibold">
+                <button type="submit" 
+                        class="w-full red-gradient text-white py-3 px-6 rounded-lg font-semibold text-lg transition-all duration-300 hover:shadow-lg transform hover:scale-105">
                     <i class="fas fa-paper-plane mr-2"></i>
-                    Зарегистрироваться
+                    Участвовать в лотерее
                 </button>
             </form>
         </div>
     </div>
-    
     <!-- Страница лотереи -->
-    <div id="lotteryPage" class="hidden w-full max-w-2xl mx-4">
-        <div class="lottery-container rounded-2xl p-8 text-center">
-            <h1 class="text-4xl font-bold text-gray-800 mb-2">🎲 Лотерея слов</h1>
-            <p class="text-gray-600 mb-8">Нажмите кнопку и узнайте ваше выигрышное слово!</p>
-            
-            <div class="mb-8">
-                <div id="wordDisplay" class="word-display text-6xl font-bold py-12 px-8 rounded-xl mb-6 min-h-32 flex items-center justify-center">
-                    ?
+    <div id="mainContent" class="hidden min-h-screen flex items-center justify-center p-4">
+        <div class="max-w-2xl w-full">
+            <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
+                <div class="red-gradient text-white p-8 text-center">
+                    <h1 class="text-4xl font-bold mb-2">
+                        <i class="fas fa-dice mr-3"></i>Лотерея слов
+                    </h1>
+                    <p class="text-xl opacity-90">Нажмите кнопку и узнайте ваше слово!</p>
                 </div>
                 
-                <button id="lotteryBtn" class="btn-primary py-4 px-8 text-xl font-semibold text-white rounded-xl">
-                    <i class="fas fa-dice mr-2"></i>
-                    Участвовать в лотерее
-                </button>
-            </div>
-            
-            <div class="bg-gray-100 rounded-lg p-4">
-                <h3 class="text-lg font-semibold text-gray-700 mb-2">Возможные призы:</h3>
-                <div class="flex flex-wrap justify-center gap-2">
-                    <span class="bg-white px-3 py-1 rounded-full text-sm text-gray-600">🍵 кружка</span>
-                    <span class="bg-white px-3 py-1 rounded-full text-sm text-gray-600">🍽️ тарелка</span>
-                    <span class="bg-white px-3 py-1 rounded-full text-sm text-gray-600">🥤 стакан</span>
-                    <span class="bg-white px-3 py-1 rounded-full text-sm text-gray-600">🥓 сало</span>
-                    <span class="bg-white px-3 py-1 rounded-full text-sm text-gray-600">🥩 мясо</span>
+                <div class="p-8">
+                    <div class="word-display bg-gray-100 rounded-xl mb-8 border-4 border-gray-300">
+                        <div id="wordResult" class="text-6xl font-bold text-gray-800 text-center">
+                            ?
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button id="randomizeBtn" 
+                                class="pulse-button red-gradient text-white py-4 px-8 rounded-full font-bold text-xl transition-all duration-300 hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+                            <i class="fas fa-magic mr-3"></i>
+                            <span id="btnText">Участвовать в лотерее</span>
+                        </button>
+                    </div>
+                    
+                    <div class="mt-8 text-center">
+                        <p class="text-gray-600 mb-4">Возможные слова:</p>
+                        <div class="flex flex-wrap justify-center gap-2">
+                            <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm">кружка</span>
+                            <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm">тарелка</span>
+                            <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm">стакан</span>
+                            <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm">сало</span>
+                            <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm">мясо</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -218,10 +241,6 @@
             }
         });
         
-        // Функция отправки данных в Google Таблицы
-        async function sendToGoogleSheets(data) {
-            // Если у вас еще нет настроенного Google Apps Script, 
-            // эта функция будет имитировать отправку
             
             return new Promise((resolve) => {
                 setTimeout(() => {
